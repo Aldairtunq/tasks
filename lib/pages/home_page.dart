@@ -32,7 +32,49 @@ class HomePage extends StatelessWidget {
                   });
                 });
               },
-              child: Text("obtener la data desde fires"),
+              child: Text(
+                "obtener la data ",
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                taskReference.add(
+                  {
+                    "title": "ir de compras al super3",
+                    "description": "debemos comprar comida para todo el mes",
+                  },
+                ).then((DocumentReference value) {
+                  print(value.id);
+                }).catchError((error) {
+                  print("ocurio un error en el registro");
+                }).whenComplete(() {
+                  print("el registro a terminado");
+                });
+              },
+              child: Text(
+                "Agregar DOCUMENTO ",
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                taskReference.doc("zd29P17BQJlpAwNeVDlt").update(
+                  {
+                    "title": "ir de paseo",
+                    "description": "tenemos que salir temprano",
+                  },
+                ).catchError(
+                  (error) {
+                    print(error);
+                  },
+                ).whenComplete(
+                  () {
+                    print("actualizacion terminada");
+                  },
+                );
+              },
+              child: Text(
+                "Actualizar documento",
+              ),
             ),
           ],
         ),
