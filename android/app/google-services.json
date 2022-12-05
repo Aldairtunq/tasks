@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "662323365241",
+    "project_id": "task-bbc88",
+    "storage_bucket": "task-bbc88.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:662323365241:android:8c598b8280f3142d835ba8",
+        "android_client_info": {
+          "package_name": "com.livcode.tasks"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "662323365241-ohn1ee0m1mpuos7h5ddsmr2ieko53bdm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBS92rIllv4XtqAcWzrksswCPF-E9yAnh4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "662323365241-ohn1ee0m1mpuos7h5ddsmr2ieko53bdm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
