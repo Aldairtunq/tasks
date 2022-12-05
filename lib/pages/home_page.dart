@@ -76,6 +76,39 @@ class HomePage extends StatelessWidget {
                 "Actualizar documento",
               ),
             ),
+            ElevatedButton(
+              onPressed: () {
+                taskReference.doc("zd29P17BQJlpAwNeVDlt").delete().catchError(
+                  (error) {
+                    print(error);
+                  },
+                ).whenComplete(
+                  () {
+                    print(" la eliminacion esta completada");
+                  },
+                );
+              },
+              child: Text(
+                "Eliminar documento",
+              ),
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  taskReference.doc("A00002").set(
+                    {
+                      "title": "ir al concierto",
+                      "description":
+                          "este fin de semana tenemos que ir al concierto"
+                    },
+                  ).catchError((error) {
+                    print(error);
+                  }).whenComplete(
+                    () {
+                      print("creacion completada");
+                    },
+                  );
+                },
+                child: Text("Agregar documento personalizado"))
           ],
         ),
       ),
