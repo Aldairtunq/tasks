@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:tasks/models/task_model.dart';
 import 'package:tasks/ui/widgets/general/colors.dart';
 import 'package:tasks/ui/widgets/general_widgets.dart';
 import 'package:tasks/ui/widgets/item_category_widget.dart';
 
 class ItemTaskWidget extends StatelessWidget {
-  const ItemTaskWidget({super.key});
+  TaskModel taskModel;
+
+  ItemTaskWidget({required this.taskModel});
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +29,11 @@ class ItemTaskWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ItemCategoryWidget(
-            text: " personal",
+            text: taskModel.category,
           ),
           divider3(),
           Text(
-            "Loren ipsum, dolor sit amet0",
+            taskModel.title,
             style: TextStyle(
               fontSize: 15.0,
               fontWeight: FontWeight.w600,
@@ -38,7 +41,7 @@ class ItemTaskWidget extends StatelessWidget {
             ),
           ),
           Text(
-            "lorem ipsum dolor dit smet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
+            taskModel.description,
             style: TextStyle(
               fontSize: 14.0,
               fontWeight: FontWeight.w500,
@@ -47,7 +50,7 @@ class ItemTaskWidget extends StatelessWidget {
           ),
           divider6(),
           Text(
-            "10/12/2022",
+            taskModel.date,
             style: TextStyle(
               fontSize: 14.0,
               fontWeight: FontWeight.w600,
