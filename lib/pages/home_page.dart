@@ -3,21 +3,65 @@ import 'dart:html';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tasks/models/task_model.dart';
+import 'package:tasks/ui/widgets/button_normal_widget.dart';
 import 'package:tasks/ui/widgets/general/colors.dart';
 import 'package:tasks/ui/widgets/general_widgets.dart';
 import 'package:tasks/ui/widgets/item_task_widget.dart';
-import 'package:tasks/ui/widgets/textfield_search_widgets.dart';
+import 'package:tasks/ui/widgets/textfield_Normal_widgets.dart';
 
 class HomePage extends StatelessWidget {
   CollectionReference taskReference =
       FirebaseFirestore.instance.collection('task');
+
+  showTaskForm(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        backgroundColor: Colors.transparent,
+        builder: (BuildContext context) {
+          return Container(
+            padding: EdgeInsets.all(14.0),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(26.0),
+                    topRight: Radius.circular(22.0))),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  "agregar tarea",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 15.0,
+                  ),
+                ),
+                divider6(),
+                TextFliedNormalWidget(
+                  hintText: "titulo",
+                  icon: Icons.text_fields,
+                ),
+                divider10(),
+                TextFliedNormalWidget(
+                  hintText: "description",
+                  icon: Icons.description,
+                ),
+                divider10(),
+                divider10(),
+                ButtonNormalWidget(),
+              ],
+            ),
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: kBrandSecondaryColor,
         floatingActionButton: InkWell(
-          onTap: () {},
+          onTap: () {
+            showTaskForm(context);
+          },
           borderRadius: BorderRadius.circular(14.0),
           child: Container(
             padding:
@@ -82,7 +126,10 @@ class HomePage extends StatelessWidget {
                           ),
                         ),
                         divider10(),
-                        TextFliedSearchWidget(),
+                        TextFliedNormalWidget(
+                          icon: Icons.search,
+                          hintText: "buscar tarea",
+                        ),
                       ]),
                 ),
               ),
