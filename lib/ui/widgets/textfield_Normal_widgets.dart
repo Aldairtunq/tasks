@@ -4,15 +4,23 @@ import 'package:tasks/ui/widgets/general/colors.dart';
 class TextFliedNormalWidget extends StatelessWidget {
   String hintText;
   IconData icon;
+  Function? onTap;
 
   TextFliedNormalWidget({
     required this.hintText,
     required this.icon,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      onTap: onTap != null
+          ? () {
+              onTap!();
+            }
+          : null,
+      readOnly: onTap != null ? true : false,
       decoration: InputDecoration(
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 12.0, vertical: 14.0),
