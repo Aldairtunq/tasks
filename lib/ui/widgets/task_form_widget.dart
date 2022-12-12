@@ -10,6 +10,14 @@ class TaskFormWidget extends StatefulWidget {
 }
 
 class _TaskFormWidgetState extends State<TaskFormWidget> {
+  final formkey = GlobalKey<FormState>();
+
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _dateController = TextEditingController();
+
+  String categorySelect = "Personal";
+
   showSelectDate() async {
     DateTime? datetime = await showDatePicker(
         context: context,
@@ -34,87 +42,117 @@ class _TaskFormWidgetState extends State<TaskFormWidget> {
             child: widget!,
           );
         });
+    if (datetime != null) {
+      _dateController.text = datetime.toString().substring(0, 10);
+      setState(() {});
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(14.0),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.all(14.0),
+      decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(26.0), topRight: Radius.circular(22.0))),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            "agregar tarea",
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 15.0,
+      child: Form(
+        key: formkey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text(
+              "agregar tarea",
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 15.0,
+              ),
             ),
-          ),
-          divider10(),
-          TextFliedNormalWidget(
-            hintText: "titulo",
-            icon: Icons.text_fields,
-          ),
-          divider10(),
-          TextFliedNormalWidget(
-            hintText: "description",
-            icon: Icons.description,
-          ),
-          divider10(),
-          Text("Categorias: "),
-          Wrap(
-            crossAxisAlignment: WrapCrossAlignment.start,
-            runAlignment: WrapAlignment.start,
-            spacing: 10.0,
-            children: [
-              FilterChip(
-                selected: true,
-                backgroundColor: kBrandSecondaryColor,
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                selectedColor: categoryColor["personal"],
-                checkmarkColor: Colors.white,
-                labelStyle: TextStyle(color: Colors.white),
-                label: Text("Personal"),
-                onSelected: (bool value) {},
-              ),
-              FilterChip(
-                selected: true,
-                backgroundColor: kBrandSecondaryColor,
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                selectedColor: categoryColor["Trabajo"],
-                checkmarkColor: Colors.white,
-                labelStyle: TextStyle(color: Colors.white),
-                label: Text("Trabajo"),
-                onSelected: (bool value) {},
-              ),
-              FilterChip(
-                selected: true,
-                backgroundColor: kBrandSecondaryColor,
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                selectedColor: categoryColor["Otro"],
-                checkmarkColor: Colors.white,
-                labelStyle: TextStyle(color: Colors.white),
-                label: Text("Otro"),
-                onSelected: (bool value) {},
-              ),
-            ],
-          ),
-          divider10(),
-          TextFliedNormalWidget(
-            hintText: "Fecha",
-            icon: Icons.date_range,
-            onTap: () {
-              showSelectDate();
-            },
-          ),
-          divider20(),
-          ButtonNormalWidget(),
-        ],
+            divider10(),
+            TextFliedNormalWidget(
+              hintText: "titulo",
+              icon: Icons.text_fields,
+              controller: _titleController,
+            ),
+            divider10(),
+            TextFliedNormalWidget(
+              hintText: "description",
+              icon: Icons.description,
+              controller: _descriptionController,
+            ),
+            divider10(),
+            const Text("Categorias: "),
+            Wrap(
+              crossAxisAlignment: WrapCrossAlignment.start,
+              runAlignment: WrapAlignment.start,
+              spacing: 10.0,
+              children: [
+                FilterChip(
+                  selected: categorySelect == "Personal",
+                  backgroundColor: kBrandSecondaryColor,
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  selectedColor: categoryColor[categorySelect],
+                  checkmarkColor: Colors.white,
+                  labelStyle: TextStyle(
+                      color: categorySelect == "Personal"
+                          ? Colors.white
+                          : kBrandPrimaryColor),
+                  label: Text("Personal"),
+                  onSelected: (bool value) {
+                    categorySelect = "Personal";
+                    setState(() {});
+                  },
+                ),
+                FilterChip(
+                  selected: categorySelect == "Trabajo",
+                  backgroundColor: kBrandSecondaryColor,
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  selectedColor: categoryColor[categorySelect],
+                  checkmarkColor: Colors.white,
+                  labelStyle: TextStyle(
+                      color: categorySelect == "Trabajo"
+                          ? Colors.white
+                          : kBrandPrimaryColor),
+                  label: Text("Trabajo"),
+                  onSelected: (bool value) {
+                    categorySelect = "Trabajo";
+                    setState(() {});
+                  },
+                ),
+                FilterChip(
+                  selected: categorySelect == "Otro",
+                  backgroundColor: kBrandSecondaryColor,
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  selectedColor: categoryColor[categorySelect],
+                  checkmarkColor: Colors.white,
+                  labelStyle: TextStyle(
+                      color: categorySelect == "Otro"
+                          ? Colors.white
+                          : kBrandPrimaryColor),
+                  label: Text("Otro"),
+                  onSelected: (bool value) {
+                    categorySelect = "Otro";
+                    setState(() {});
+                  },
+                ),
+              ],
+            ),
+            divider10(),
+            TextFliedNormalWidget(
+              hintText: "Fecha",
+              icon: Icons.date_range,
+              onTap: () {
+                showSelectDate();
+              },
+              controller: _dateController,
+            ),
+            divider20(),
+            ButtonNormalWidget(onPressed: () {
+              if (formkey.currentState!.validate()) {}
+            }),
+          ],
+        ),
       ),
     );
   }
