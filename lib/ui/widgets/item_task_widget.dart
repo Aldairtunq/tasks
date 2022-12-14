@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tasks/models/task_model.dart';
+import 'package:tasks/services/my_service_firestore.dart';
 import 'package:tasks/ui/widgets/general/colors.dart';
 import 'package:tasks/ui/widgets/general_widgets.dart';
 import 'package:tasks/ui/widgets/item_category_widget.dart';
@@ -8,6 +9,77 @@ class ItemTaskWidget extends StatelessWidget {
   TaskModel taskModel;
 
   ItemTaskWidget({required this.taskModel});
+
+  MyServicesFirestore _myServicesFirestore =
+      MyServicesFirestore(collection: "task");
+
+  showFinishedDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(18.0),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                "finalizar tarea",
+                style: TextStyle(
+                  color: kBrandPrimaryColor.withOpacity(0.87),
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              divider6(),
+              Text(
+                "deseas finalizar la tarea seleccionada",
+                style: TextStyle(
+                  color: kBrandPrimaryColor.withOpacity(0.87),
+                  fontWeight: FontWeight.w400,
+                  fontSize: 13.0,
+                ),
+              ),
+              divider10(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      "cancelar",
+                      style: TextStyle(
+                        color: kBrandPrimaryColor.withOpacity(0.87),
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14.0,
+                      ),
+                    ),
+                  ),
+                  divider10Width(),
+                  ElevatedButton(
+                    onPressed: () {
+                      _myServicesFirestore.finishedTask(taskModel.id!);
+                      Navigator.pop(context);
+                    },
+                    style: ElevatedButton.styleFrom(
+                        primary: kBrandPrimaryColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14.0),
+                        )),
+                    child: Text(
+                      "Finalizar",
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +109,9 @@ class ItemTaskWidget extends StatelessWidget {
                 Text(
                   taskModel.title,
                   style: TextStyle(
+                    decoration: taskModel.status
+                        ? TextDecoration.none
+                        : TextDecoration.lineThrough,
                     fontSize: 15.0,
                     fontWeight: FontWeight.w600,
                     color: kBrandPrimaryColor.withOpacity(0.85),
@@ -75,7 +150,10 @@ class ItemTaskWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(14.0),
                   ),
                   onSelected: (value) {
-                    print(value);
+                    if (value == 1) {
+                      //
+                      showFinishedDialog(context);
+                    }
                   },
                   itemBuilder: (BuildContext context) {
                     return [

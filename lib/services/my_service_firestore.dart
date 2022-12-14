@@ -17,8 +17,11 @@ class MyServicesFirestore {
     return id;
   }
 
-//delete
-
-//update
-
+  Future<void> finishedTask(String taskId) async {
+    await _collectionReference.doc(taskId).update(
+      {
+        "status": false,
+      },
+    );
+  }
 }
