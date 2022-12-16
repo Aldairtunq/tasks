@@ -12,6 +12,7 @@ import 'package:tasks/ui/widgets/textfield_Normal_widgets.dart';
 import 'package:tasks/ui/widgets/utils/task_search_delegate.dart';
 
 class HomePage extends StatelessWidget {
+  List<TaskModel> tasksGeneral = [];
   final TextEditingController _searchController = TextEditingController();
   CollectionReference taskReference =
       FirebaseFirestore.instance.collection('task');
@@ -108,7 +109,8 @@ class HomePage extends StatelessWidget {
                           onTap: () async {
                             await showSearch(
                                 context: context,
-                                delegate: TaskSearchDelegate());
+                                delegate:
+                                    TaskSearchDelegate(tasks: tasksGeneral));
                           },
                         ),
                       ]),
@@ -151,6 +153,8 @@ class HomePage extends StatelessWidget {
                             task.id = e.id;
                             return task;
                           }).toList();
+                          tasksGeneral.clear();
+                          tasksGeneral = tasks;
 
                           return ListView.builder(
                             itemCount: tasks.length,
