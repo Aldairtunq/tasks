@@ -1,5 +1,6 @@
 import 'dart:html';
 import 'dart:ui';
+import 'package:tasks/ui/widgets/button_custom_widget.dart';
 import 'package:tasks/ui/widgets/button_normal_widget.dart';
 import 'package:tasks/ui/widgets/general_widgets.dart';
 import 'package:tasks/ui/widgets/textfield_Normal_widgets.dart';
@@ -53,7 +54,25 @@ class _LoginPageState extends State<LoginPage> {
                     controller: _passwordController,
                   ),
                   divider20(),
-                  ButtonNormalWidget(onPressed: () {}),
+                  ButtonCustomWidget(
+                    text: "iniciar secion ",
+                    icon: "check",
+                    color: kBrandPrimaryColor,
+                  ),
+                  divider20(),
+                  Text("o registrate con tus redes sociales"),
+                  divider20(),
+                  ButtonCustomWidget(
+                    text: " iniciar secion con Google ",
+                    icon: "Google",
+                    color: Color(0xfff84b2a),
+                  ),
+                  divider20(),
+                  ButtonCustomWidget(
+                    text: " iniciar secion con Facebook ",
+                    icon: "Facebook",
+                    color: Color(0xff507CC0),
+                  ),
                 ],
               )),
         ));
