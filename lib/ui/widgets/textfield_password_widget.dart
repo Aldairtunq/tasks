@@ -1,0 +1,74 @@
+import 'package:flutter/material.dart';
+import 'package:tasks/ui/widgets/general/colors.dart';
+
+class TextFieldPasswordWidget extends StatefulWidget {
+  TextEditingController controller;
+  TextFieldPasswordWidget({
+    required this.controller,
+  });
+  @override
+  State<TextFieldPasswordWidget> createState() => _TextFieldPaswordState();
+}
+
+class _TextFieldPaswordState extends State<TextFieldPasswordWidget> {
+  bool isInvisible = true;
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+        controller: widget.controller,
+        obscureText: isInvisible,
+        decoration: InputDecoration(
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 12.0, vertical: 14.0),
+            prefixIcon: Icon(
+              Icons.lock,
+              size: 20.0,
+              color: kBrandPrimaryColor.withOpacity(8.6),
+            ),
+            suffixIcon: IconButton(
+              icon: Icon(
+                  isInvisible
+                      ? Icons.remove_red_eye
+                      : Icons.remove_red_eye_outlined,
+                  color: kBrandPrimaryColor.withOpacity(0.85)),
+              onPressed: () {
+                isInvisible = !isInvisible;
+                setState(() {});
+              },
+            ),
+            hintText: "Contrasena",
+            hintStyle: TextStyle(
+                fontSize: 14.0, color: kBrandPrimaryColor.withOpacity(8.6)),
+            filled: true,
+            fillColor: kBrandSecondaryColor,
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(
+                14.0,
+              ),
+              borderSide: BorderSide.none,
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(
+                14.0,
+              ),
+              borderSide: BorderSide.none,
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(
+                14.0,
+              ),
+              borderSide: BorderSide.none,
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(
+                14.0,
+              ),
+              borderSide: BorderSide.none,
+            )),
+        validator: (String? value) {
+          if (value != null && value.isEmpty) {
+            return "campo obligatorio";
+          }
+        });
+  }
+}
