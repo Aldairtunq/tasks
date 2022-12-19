@@ -21,6 +21,15 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _fullNameController = TextEditingController();
 
+  _RegisterUser() async {
+    UserCredential userCredential =
+        await FirebaseAuth.instance.signi.createUserWithEmailAndPassword(
+      email: " 201912945b@utea",
+      password: "1234",
+    );
+    print(userCredential);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,6 +76,9 @@ class _RegisterPageState extends State<RegisterPage> {
               text: "Registrate Ahora ",
               icon: "check",
               color: kBrandPrimaryColor,
+              Onpressed: () {
+                _RegisterUser();
+              },
             ),
           ],
         ),

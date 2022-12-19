@@ -41,6 +41,7 @@ class _LoginPageState extends State<LoginPage> {
                     fontSize: 20.0,
                     fontWeight: FontWeight.w600,
                     color: kBrandPrimaryColor,
+                    onPressed: () {},
                   ),
                 ),
                 divider10(),
@@ -67,6 +68,7 @@ class _LoginPageState extends State<LoginPage> {
                   text: " iniciar secion con Google ",
                   icon: "Google",
                   color: Color(0xfff84b2a),
+                  Onpressed: () {},
                 ),
                 divider20(),
                 ButtonCustomWidget(
